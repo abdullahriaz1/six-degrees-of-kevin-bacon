@@ -1,0 +1,18 @@
+Methodology derived from: https://www.youtube.com/watch?v=T_m27bhVQQQ&ab_channel=MaryElaineCaliff
+
+From I/O create two maps: Actors and Movies.
+Actors[actor] = set(movies)
+Movies[movie] = vector(vector(actors)) //I use map to hold list of actors within a movie because it prevents duplicate movie titles. 
+
+I can query an actor's neighbor actors by looping through each movie the actor is in and looping through the set of actors in the movie if the actor is in that movie.
+
+For BFS, I create a queue of class Element which contains the previous actor, the movie, and the cost. 
+I also create a vector called Path which stores the information about the shortest path (cost) to each actor from the start actor, the predecessor of the actor, and the movie that connects the actor and predecessor.
+To start, we insert the queue with the previous actor being Actor 1.
+I pop from queue, and generate all neighbors of the previous actor using the aforementioned query method.
+For each neighbor, if it has not already been visited, make this actor's cost 1 more than predecessor actor's cost. Update Path with this information and the connecting movie.
+If we've found the second actor, we can break and not queue a new Element.
+Otherwise, queue a new Element with the previous actor being this neighbor, and include the cost and movie information.
+
+Once BFS is done, a final Path will contain the shortest path information for each actor.
+Starting at Actor 2, we backtrack through each predecessor of the actor until we reach Actor 1. This will give us each actor and movie between Actor 1 and 2.
